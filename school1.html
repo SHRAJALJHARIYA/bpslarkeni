@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बापा प्राथमिक शाला लरकेनी स्कूल - प्राथमिक शिक्षा का उत्कृष्ट केंद्र</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .hindi-font {
+            font-family: 'Poppins', 'Arial Unicode MS', sans-serif;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .gallery-item {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .news-card {
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-school text-blue-600 text-2xl"></i>
+                <a href="#" class="text-xl font-bold text-blue-800 hindi-font">बापा प्राथमिक शाला लरकेनी</a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">होम</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">हमारे बारे में</a>
+                <a href="#academics" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">शैक्षणिक</a>
+                <a href="#admission" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">प्रवेश</a>
+                <a href="#gallery" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">गैलरी</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">संपर्क</a>
+                <a href="age-calculator.html" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">Age-Calculator</a>
+				<a href="age-calculator2.html" class="nav-link text-gray-700 hover:text-blue-600 hindi-font">Age-Calculator</a>
+            </div>
+            <button class="md:hidden text-gray-700 focus:outline-none" id="menu-toggle">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white w-full py-2 px-4 shadow-lg" id="mobile-menu">
+            <a href="#home" class="block py-2 text-gray-700 hover:text-blue-600 hindi-font">होम</a>
+            <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600 hindi-font">हमारे बारे में</a>
+            <a href="#academics" class="block py-2 text-gray-700 hover:text-blue-600 hindi-font">शैक्षणिक</a>
+            <a href="#admission" class="block py-2 text-gray-700 hover:text-blue-600 hindi-font">प्रवेश</a>
+            <a href="#gallery" class="block py-2 text-gray-700 hover:text-blue-600 hindi-font">गैलरी</a>
+            <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600 hindi-font">संपर्क</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 hindi-font">बापा प्राथमिक शाला में आपका स्वागत है</h1>
+            <p class="text-xl md:text-2xl mb-8 hindi-font">"शिक्षा ही समृध्धि का द्वार है "</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#admission"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 hindi-font">प्रवेश
+                    जानकारी</a>
+                <a href="#contact"
+                    class="bg-white hover:bg-gray-100 text-blue-600 px-6 py-3 rounded-lg font-medium transition duration-300 hindi-font">संपर्र्क
+                    करें</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800 hindi-font">हमारे बारे में</h2>
+
+            <div class="flex flex-col md:flex-row gap-8 mb-12">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800 hindi-font">हमारा इतिहास</h3>
+                    <p class="text-gray-600 leading-relaxed hindi-font">
+                        विद्यालय का परिचय
+
+                        बापा प्राथमिक शाला,लरकेनी की स्थापना वर्ष 1957 में स्वतंत्रता प्राप्ति के दस वर्ष बाद श्री
+                        अमृतलाल विट्ठलदास ठाकुर द्वारा की गई थी। उस समय यह गाँव का पहला विद्यालय था, जहाँ शासकीय
+                        विद्यालय की कोई व्यवस्था नहीं थी। विद्यालय ने शिक्षा का दीप जलाकर गाँव के बच्चों को ज्ञान का
+                        प्रथम अवसर प्रदान किया.संस्थापक का योगदान श्री अमृतलाल विट्ठलदास ठाकुर, जिन्हें "ठक्कर बापा" के
+                        नाम से भी जाना जाता है, समाज सुधारक एवं शिक्षा-प्रेमी व्यक्तित्व थे। उन्होंने समाज के पिछड़े एवं
+                        वंचित वर्गों, विशेष रूप से आदिवासी और दलितों के लिए शिक्षा के अवसर उपलब्ध कराने का संकल्प लिया
+                        था.
+                    </p>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E12AQHBOhaTe4X-OA/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1732858082041?e=2147483647&v=beta&t=8xbrA_dBSCz2g-bW0CxFlmts8hRQGM5ZERdYV01SPyk"
+                        alt="स्कूल भवन" class="rounded-lg shadow-lg w-full h-64 object-cover">
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-8 rounded-lg">
+                <h3 class="text-2xl font-semibold mb-4 text-center text-blue-800 hindi-font">हमारी दृष्टि एवं मिशन</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-eye text-blue-600 text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-gray-800 hindi-font">दृष्टि</h4>
+                        </div>
+                        <p class="text-gray-600 hindi-font">गुणवत्तापूर्ण शिक्षा प्रदान करना और बच्चों को जिम्मेदार
+                            नागरिक बनाना।</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-bullseye text-blue-600 text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-gray-800 hindi-font">मिशन</h4>
+                        </div>
+                        <p class="text-gray-600 hindi-font">गाँव के प्रत्येक बच्चे को प्राथमिक शिक्षा उपलब्ध कराना एवं
+                            उनके समग्र विकास पर ध्यान देना।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Section -->
+    <section class="py-12 bg-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2 hindi-font">1957</div>
+                    <p class="text-blue-100 hindi-font">स्थापना वर्र्ष</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2 hindi-font">1-5</div>
+                    <p class="text-blue-100 hindi-font">कक्षााएँ</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2 hindi-font">CGBSE</div>
+                    <p class="text-blue-100 hindi-font">बोर्र्ड</p>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2 hindi-font">30+</div>
+                    <p class="text-blue-100 hindi-font">विद्यार्थी</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academics Section -->
+    <section id="academics" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800 hindi-font">शैक्षणिक जानकारी</h2>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-blue-100 p-4 rounded-full">
+                            <i class="fas fa-book-open text-blue-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-gray-800 hindi-font">पाठ्यक्रम</h3>
+                    <p class="text-gray-600 text-center hindi-font">CGBSE बोर्ड के निर्देशानुसार हिन्दी माध्यम में
+                        शिक्षा (आधारभूत अंग्रेज़ी सहित)</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-blue-100 p-4 rounded-full">
+                            <i class="fas fa-chalkboard-teacher text-blue-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-gray-800 hindi-font">शिक्षण पद्धति</h3>
+                    <p class="text-gray-600 text-center hindi-font">गतिविधि आधारित शिक्षण, व्यावहारिक ज्ञान पर बल</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-blue-100 p-4 rounded-full">
+                            <i class="fas fa-award text-blue-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3 text-gray-800 hindi-font">मूल्यांकन</h3>
+                    <p class="text-gray-600 text-center hindi-font">निरंतर मूल्यांकन प्रणाली, मासिक परीक्षााएँ एवं
+                        वार्षिक परीक्षा</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-blue-800 hindi-font">हमारी सुविधाएँ</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-check text-blue-600"></i>
+                        </div>
+                        <p class="text-gray-700 hindi-font">विद्यालय का खेल का मैदान</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-check text-blue-600"></i>
+                        </div>
+                        <p class="text-gray-700 hindi-font">साफ-सुथरे कक्षााएँ</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-check text-blue-600"></i>
+                        </div>
+                        <p class="text-gray-700 hindi-font">पुस्तकालय</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-check text-blue-600"></i>
+                        </div>
+                        <p class="text-gray-700 hindi-font">खेलकूद एवं सांस्कृतिक गतिवििधियाँ</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-check text-blue-600"></i>
+                        </div>
+                        <p class="text-gray-700 hindi-font">अनुभवी शिक्षकगण</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-check text-blue-600"></i>
+                        </div>
+                        <p class="text-gray-700 hindi-font">सुरक्षित वातावरण</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admission Section -->
+    <section id="admission" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800 hindi-font">प्रवेश प्रक्रिया</h2>
+
+            <div class="max-w-3xl mx-auto bg-blue-50 p-8 rounded-lg">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-700 hindi-font">प्रवेश हेतु आवश्यक शर्तें</h3>
+                    <ul class="space-y-3 text-gray-700 hindi-font">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>कक्षा 1 में प्रवेश हेतु न्यूनतम आयु 6 वर्ष</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>प्रवेश प्रक्रिया शासकीय नियमों के अनुसार</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-2"></i>
+                            <span>प्रवेश फॉर्म वि विद्यालय कार्यालय से प्राप्त करें</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-700 hindi-font">आवश्यक दस्तावेज़</h3>
+                    <div class="grid md:grid-cols-2 gap-4 hindi-font">
+                        <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-3"></i>
+                            <span>जन्म प्रमाण पत्र</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+                            <i class="fas fa-id-card text-blue-500 mr-3"></i>
+                            <span>आधार कार्ड</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+                            <i class="fas fa-image text-blue-500 mr-3"></i>
+                            <span>पासपोर्र्ट साइज फोटो (4)</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+                            <i class="fas fa-file-signature text-blue-500 mr-3"></i>
+                            <span>निवास प्रमाण पत्र</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="#contact"
+                        class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 hindi-font">अधिक
+                        जानकारी हेतु संपर्र्क करें</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800 hindi-font">हमारी गैलरी</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="स्कूल भवन" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">स्कूल भवन</p>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="कक्षा कक्ष" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">कक्षा कक्ष</p>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
+                        alt="बच्चे पढ़ते हुए" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">बच्चे पढ़ते हुए</p>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1542816417-098367b933c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="खेलकूद दृश्य" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">खेलकूद दृश्य</p>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="वार्षिक उत्सव" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">वार्षिक उत्सव</p>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="स्वतंत्रता दिवस" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">स्वतंत्रता दिवस</p>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="पुस्तकालय" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">पुस्तकालय</p>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
+                        alt="शिक्षक-छात्र संवाद" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-gray-700 font-medium hindi-font">शिक्षक-छात्र संवाद</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 hindi-font">समाचार एवं घोषणााएँ</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="news-card bg-white text-gray-800 rounded-lg overflow-hidden shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <span class="text-sm text-gray-500 hindi-font">15 जून 2023</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">नए सत्र हेतु प्रवेश प्रारंभ</h3>
+                        <p class="text-gray-600 mb-4 hindi-font">शैक्षणिक सत्र 2023-24 हेतु प्रवेश प्रक्रिया प्रारंभ हो
+                            चुकी है। आवेदन फॉर्म कार्यालय से प्राप्त करें।</p>
+                        <a href="#admission" class="text-blue-600 font-medium hover:text-blue-700 hindi-font">और पढ़ें
+                            →</a>
+                    </div>
+                </div>
+
+                <div class="news-card bg-white text-gray-800 rounded-lg overflow-hidden shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <span class="text-sm text-gray-500 hindi-font">25 जुलाई 2023</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">वार्षिक खेलकूद दिवस</h3>
+                        <p class="text-gray-600 mb-4 hindi-font">विद्यालय का वार्षिक खेलकूद दिवस 15 अगस्त को आयोजित
+                            होगा। सभी छात्र-छात्राएँ भाग लें।</p>
+                        <a href="#" class="text-blue-600 font-medium hover:text-blue-700 hindi-font">और पढ़ें →</a>
+                    </div>
+                </div>
+
+                <div class="news-card bg-white text-gray-800 rounded-lg overflow-hidden shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <span class="text-sm text-gray-500 hindi-font">15 अगस्त 2023</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 hindi-font">स्वतंत्रता दिवस सम्पन्न</h3>
+                        <p class="text-gray-600 mb-4 hindi-font">विद्यालय में स्वतंत्रता दिवस का कार्यक्रम धूमधाम से
+                            मनाया गया। छात्रों ने सांस्कृतिक कार्यक्रम प्रस्तुत किए।</p>
+                        <a href="#gallery" class="text-blue-600 font-medium hover:text-blue-700 hindi-font">और पढ़ें
+                            →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800 hindi-font">संपर्र्क करें</h2>
+
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <div class="bg-blue-50 p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-semibold mb-6 text-blue-700 hindi-font">हमारा पता</h3>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 hindi-font">पता</h4>
+                                    <p class="text-gray-600 hindi-font">बापा प्राथमिक शाला लरकेनी, ग्राम-लरकेनी
+                                        ,पोस्ट-धोबहर,जिला,- गौरेला पेंड्रा मरवाही, छत्तीसगढ़ – 495119</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 hindi-font">फ़ोन</h4>
+                                    <p class="text-gray-600 hindi-font">+91-9876543210</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 hindi-font">ईमेल</h4>
+                                    <p class="text-gray-600 hindi-font">info.bpslarkei@gmail.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-clock text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 hindi-font">कार्य समय</h4>
+                                    <p class="text-gray-600 hindi-font">सोमवार से शनिवार: सुबह 8:00 बजे से दोपहर 3:00
+                                        बजे तक</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm h-full">
+                        <h3 class="text-2xl font-semibold mb-6 text-blue-700 hindi-font">संदेश भेजें</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2 hindi-font">आपका नाम</label>
+                                <input type="text" id="name"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 hindi-font"
+                                    placeholder="आपका नाम">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2 hindi-font">ईमेल</label>
+                                <input type="email" id="email"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 hindi-font"
+                                    placeholder="आपका  ईमेल">
+                            </div>
+                            <div class="mb-4">
+                                <label for="phone" class="block text-gray-700 mb-2 hindi-font">फ़ोन नंबर</label>
+                                <input type="tel" id="phone"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 hindi-font"
+                                    placeholder="आपका फ़ोन नंबर">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 mb-2 hindi-font">संदेश</label>
+                                <textarea id="message" rows="4"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 hindi-font"
+                                    placeholder="आपका संदेश"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition duration-300 hindi-font">संदेश
+                                भेजें</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="h-96 bg-gray-100">
+        <iframe
+            src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d312.10301191870576!2d81.98129661144938!3d22.905676496664107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3987c465524d254f%3A0x4d60ccb07c432a2!2sLarkeni%2C%20Chhattisgarh%20495119!5e1!3m2!1sen!2sin!4v1757216064093!5m2!1sen!2sin"  
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-school text-blue-400 text-2xl"></i>
+                        <h3 class="text-xl font-bold hindi-font">बापा प्राथमिक शाला लरकेनी</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4 hindi-font">"नन्हें मन को संवारें, उज्ज्वल भविष्य बनााएँ"</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-blue-400"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2 hindi-font">त्वरित लिंक</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-blue-400 hindi-font">होम</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-blue-400 hindi-font">हमारे बारे में</a>
+                        </li>
+                        <li><a href="#academics" class="text-gray-300 hover:text-blue-400 hindi-font">शैक्षणिक</a></li>
+                        <li><a href="#admission" class="text-gray-300 hover:text-blue-400 hindi-font">प्रवेश</a></li>
+                        <li><a href="#gallery" class="text-gray-300 hover:text-blue-400 hindi-font">गैलरी</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2 hindi-font">संपर्र्क</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-blue-400 mt-1 mr-2"></i>
+                            <span class="text-gray-300 hindi-font">जिला - गौरेला पेंड्रा मरवाही , छत्तीसगढ़</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt text-blue-400 mt-1 mr-2"></i>
+                            <span class="text-gray-300 hindi-font">+91-9876543210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-blue-400 mt-1 mr-2"></i>
+                            <span class="text-gray-300 hindi-font">info.bpslarkeni@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2 hindi-font">न्यूज़लेटर</h3>
+                    <p class="text-gray-300 mb-4 hindi-font">हमारे नवीनतम अपडेट प्राप्त करने के लिए सदस्यता लें</p>
+                    <form class="flex">
+                        <input type="email" placeholder="आपका ईमेल"
+                            class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full hindi-font">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg hindi-font">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 hindi-font">
+                <p>© 2025 बापा प्राथमिक शाला लरकेनी स्कूल. सर्वाधिकार सुरक्षित। | CGBSE से संबद्ध</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

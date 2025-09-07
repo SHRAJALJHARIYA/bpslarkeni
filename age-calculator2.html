@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Teacher-Friendly Age Calculator</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue: #3b82f6;
+      --green:#10b981;
+      --orange:#f97316;
+      --card-radius:16px;
+      --soft: 0 10px 30px rgba(18,38,63,0.08);
+    }
+    body{
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      padding: 24px;
+      color: #0f172a;
+    }
+
+    .app-card{
+      border-radius: var(--card-radius);
+      box-shadow: var(--soft);
+      border: none;
+    }
+
+    .brand {
+      display:flex;gap:.75rem;align-items:center;
+    }
+    .brand .logo {
+      width:56px;height:56px;border-radius:12px;
+      background:linear-gradient(135deg,var(--blue), #60a5fa);
+      color:white;display:flex;align-items:center;justify-content:center;font-weight:700;
+      box-shadow: 0 8px 20px rgba(59,130,246,0.18);
+    }
+
+    .muted { color:#566175; font-size:.94rem; }
+
+    .big-num { font-size:1.6rem; font-weight:700; }
+    .sub-num { font-size:1rem; color:#334155; }
+
+    .live-counter {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      font-weight:700;
+      letter-spacing:.03em;
+    }
+
+    .pill {
+      display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .6rem;border-radius:999px;
+      font-weight:600;font-size:.9rem;
+      background: rgba(59,130,246,0.09); color: var(--blue);
+    }
+
+    /* anim */
+    .fade-in { animation: fadeIn .42s ease both; }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(6px)} to{opacity:1; transform:none} }
+
+    .btn-primary-graded {
+      background: linear-gradient(90deg,var(--green), #34d399);
+      border: none; color: white; box-shadow: 0 8px 18px rgba(16,185,129,0.12);
+    }
+    .btn-accent {
+      background: linear-gradient(90deg,var(--orange), #fb923c);
+      border: none; color: white;
+    }
+
+    .result-card { border-radius:12px; padding:1rem; }
+    .small-muted { font-size:.85rem; color:#64748b; }
+
+    /* responsive tweak */
+    @media (max-width:720px) {
+      .brand h1 { font-size:1.15rem; }
+    }
+
+    /* table small */
+    .table-sm td, .table-sm th { padding:.4rem .6rem; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="app-card p-3 d-flex justify-content-between align-items-center">
+        <div class="brand">
+          <div class="logo"><i class="fa-solid fa-cake-candles fa-lg"></i></div>
+          <div>
+            <h1 class="mb-0">📅 Age Calculator — Teacher Edition</h1>
+            <div class="muted">Clean, colorful, and easy — print or batch-process student ages.</div>
+          </div>
+        </div>
+
+        <div class="text-end">
+          <div class="small-muted">Need help?</div>
+          <div class="pill"><i class="fa-solid fa-chalkboard-user"></i> For teachers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="row g-3 mb-3">
+    <div class="col-lg-8">
+      <div class="card app-card p-3">
+        <div class="row g-2 align-items-end">
+          <div class="col-md-4">
+            <label class="form-label"><i class="fa-regular fa-calendar"></i> Current Date</label>
+            <input id="currentDate" type="date" class="form-control">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label"><i class="fa-regular fa-calendar-check"></i> Reference Date (optional)</label>
+            <input id="refDate" type="date" class="form-control">
+            <div class="small-muted">Use for admission/exam cut-off</div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label"><i class="fa-regular fa-clock"></i> Current Time</label>
+            <input id="currentTime" type="time" class="form-control" step="1">
+          </div>
+
+          <div class="col-md-6 mt-2">
+            <label class="form-label"><i class="fa-regular fa-calendar-plus"></i> Date of Birth</label>
+            <input id="dobDate" type="date" class="form-control">
+          </div>
+          <div class="col-md-3 mt-2">
+            <label class="form-label"><i class="fa-regular fa-clock"></i> Birth Time (optional)</label>
+            <input id="dobTime" type="time" class="form-control" step="1">
+          </div>
+
+          <div class="col-md-3 mt-2 d-grid">
+            <button id="calcBtn" class="btn btn-primary-graded"> <i class="fa-solid fa-calculator me-2"></i> Calculate Age</button>
+            <button id="resetBtn" class="btn btn-outline-secondary mt-2">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Batch upload -->
+    <div class="col-lg-4">
+      <div class="card app-card p-3">
+        <h6 class="mb-2"><i class="fa-solid fa-file-csv me-2"></i> Batch Mode (CSV)</h6>
+        <div class="small-muted mb-2">Upload CSV with columns: <code>name,dob(YYYY-MM-DD),time(optional HH:MM:SS)</code></div>
+        <input id="csvInput" type="file" accept=".csv" class="form-control mb-2">
+        <button id="processCsv" class="btn btn-accent w-100"><i class="fa-solid fa-upload me-2"></i> Process CSV</button>
+        <div class="mt-3 small-muted">Processed list appears below and can be printed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Row -->
+  <div class="row g-3">
+    <div class="col-lg-6">
+      <div class="card app-card p-3 result-card fade-in">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="small-muted">Exact Age</div>
+            <div id="exactAge" class="big-num">—</div>
+            <div id="exactAgeSub" class="sub-num muted">Years • Months • Days</div>
+          </div>
+
+          <div class="text-end">
+            <div class="small-muted">Actions</div>
+            <div class="d-flex gap-2 mt-1">
+              <button id="copyBtn" class="btn btn-sm btn-outline-primary"><i class="fa-regular fa-copy me-1"></i> Copy Age</button>
+              <button id="printBtn" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-print me-1"></i> Print</button>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row g-2">
+          <div class="col-6">
+            <div class="small-muted">Weeks</div>
+            <div id="weeks" class="sub-num">—</div>
+          </div>
+          <div class="col-6">
+            <div class="small-muted">Total Days</div>
+            <div id="totalDays" class="sub-num">—</div>
+          </div>
+          <div class="col-6">
+            <div class="small-muted">Total Hours</div>
+            <div id="totalHours" class="sub-num">—</div>
+          </div>
+          <div class="col-6">
+            <div class="small-muted">Total Minutes</div>
+            <div id="totalMinutes" class="sub-num">—</div>
+          </div>
+          <div class="col-12 mt-2">
+            <div class="small-muted">Total Seconds</div>
+            <div id="totalSeconds" class="sub-num">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live counter + next birthday -->
+    <div class="col-lg-6">
+      <div class="card app-card p-3 result-card fade-in">
+        <div>
+          <div class="small-muted">You have lived… (live)</div>
+          <div id="liveCounter" class="live-counter big-num">—</div>
+          <div class="small-muted">YY:MM:WW:DD:HH:MM:SS</div>
+        </div>
+
+        <hr>
+
+        <div>
+          <div class="d-flex align-items-center gap-3">
+            <div>
+              <div class="small-muted">Next Birthday</div>
+              <div id="nextBday" class="big-num">— 🎂</div>
+            </div>
+            <div>
+              <div class="small-muted">Days Left</div>
+              <div id="daysLeft" class="sub-num">—</div>
+            </div>
+          </div>
+          <div class="mt-3 small-muted" id="nextBreakdown">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Batch Results -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card app-card p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div><strong>Batch Results</strong> <div class="small-muted">(from uploaded CSV)</div></div>
+          <div class="d-flex gap-2">
+            <button id="printBatch" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-print me-1"></i> Print List</button>
+            <button id="downloadBatch" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-download me-1"></i> Download CSV</button>
+          </div>
+        </div>
+
+        <div style="max-height:300px; overflow:auto;">
+          <table id="batchTable" class="table table-sm table-hover mb-0">
+            <thead class="table-light sticky-top">
+              <tr>
+                <th>Name</th><th>DOB</th><th>Birth Time</th><th>Exact Age</th><th>Next Bday</th><th>Days Left</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-12 small-muted">Tip: For teacher workflows keep Reference Date empty to use Today. Use Reference Date to compute age at admission/exam date.</div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // --- Helpers ---
+  function pad(n, w=2){ return String(n).padStart(w,'0'); }
+
+  function dateTimeFromInputs(dateStr, timeStr) {
+    if (!dateStr) return null;
+    const [y,m,d] = dateStr.split('-').map(Number);
+    let hh=0, mm=0, ss=0;
+    if (timeStr) {
+      const parts = timeStr.split(':').map(Number);
+      if (parts.length>0) hh = parts[0]||0;
+      if (parts.length>1) mm = parts[1]||0;
+      if (parts.length>2) ss = parts[2]||0;
+    }
+    return new Date(y, m-1, d, hh, mm, ss);
+  }
+
+  // Precise age calculation (years, months, days, hours, mins, secs) between dob and ref
+  function computePreciseAge(dob, ref) {
+    if (!(dob instanceof Date) || !(ref instanceof Date) || ref < dob) return null;
+
+    let years = ref.getFullYear() - dob.getFullYear();
+    let months = ref.getMonth() - dob.getMonth();
+    let days = ref.getDate() - dob.getDate();
+    let hours = ref.getHours() - dob.getHours();
+    let mins = ref.getMinutes() - dob.getMinutes();
+    let secs = ref.getSeconds() - dob.getSeconds();
+
+    if (secs < 0) { secs += 60; mins -= 1; }
+    if (mins < 0) { mins += 60; hours -= 1; }
+    if (hours < 0) { hours += 24; days -= 1; }
+
+    if (days < 0) {
+      // borrow days from previous month of ref
+      const prevMonthLastDay = new Date(ref.getFullYear(), ref.getMonth(), 0).getDate();
+      days += prevMonthLastDay;
+      months -= 1;
+    }
+
+    if (months < 0) {
+      months += 12;
+      years -= 1;
+    }
+
+    const totalMs = ref.getTime() - dob.getTime();
+    const totalSecs = Math.floor(totalMs/1000);
+    const totalMins = Math.floor(totalSecs/60);
+    const totalHours = Math.floor(totalMins/60);
+    const totalDays = Math.floor(totalHours/24);
+
+    return {
+      years, months, days, hours, mins, secs,
+      totalSecs, totalMins, totalHours, totalDays
+    };
+  }
+
+  // next birthday based on dob and ref
+  function getNextBirthday(dob, ref){
+    const month = dob.getMonth();
+    const date = dob.getDate();
+    const hour = dob.getHours();
+    const min = dob.getMinutes();
+    const sec = dob.getSeconds();
+
+    let candidate = new Date(ref.getFullYear(), month, date, hour, min, sec);
+    if (candidate <= ref) candidate = new Date(ref.getFullYear()+1, month, date, hour, min, sec);
+
+    const msLeft = candidate.getTime() - ref.getTime();
+    const daysLeft = Math.ceil(msLeft / (24*3600*1000));
+    return { candidate, daysLeft };
+  }
+
+  function formatLiveString(ageObj){
+    // YY:MM:WW:DD:HH:MM:SS
+    const yy = ageObj.years;
+    const mm = ageObj.months;
+    const ww = Math.floor(ageObj.totalDays / 7);
+    const dd = ageObj.totalDays % 7;
+    return `${pad(yy,2)}:${pad(mm)}:${pad(ww)}:${pad(dd)}:${pad(ageObj.hours)}:${pad(ageObj.mins)}:${pad(ageObj.secs)}`;
+  }
+
+  // --- DOM ---
+  const currentDate = document.getElementById('currentDate');
+  const currentTime = document.getElementById('currentTime');
+  const refDate = document.getElementById('refDate');
+  const dobDate = document.getElementById('dobDate');
+  const dobTime = document.getElementById('dobTime');
+
+  const calcBtn = document.getElementById('calcBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const printBtn = document.getElementById('printBtn');
+
+  const exactAge = document.getElementById('exactAge');
+  const exactAgeSub = document.getElementById('exactAgeSub');
+  const weeksEl = document.getElementById('weeks');
+  const totalDaysEl = document.getElementById('totalDays');
+  const totalHoursEl = document.getElementById('totalHours');
+  const totalMinutesEl = document.getElementById('totalMinutes');
+  const totalSecondsEl = document.getElementById('totalSeconds');
+
+  const liveCounter = document.getElementById('liveCounter');
+  const nextBday = document.getElementById('nextBday');
+  const daysLeftEl = document.getElementById('daysLeft');
+  const nextBreakdown = document.getElementById('nextBreakdown');
+
+  const csvInput = document.getElementById('csvInput');
+  const processCsvBtn = document.getElementById('processCsv');
+  const batchTableBody = document.querySelector('#batchTable tbody');
+  const printBatchBtn = document.getElementById('printBatch');
+  const downloadBatchBtn = document.getElementById('downloadBatch');
+
+  // defaults: current date/time filled
+  (function initDefaults(){
+    const now = new Date();
+    currentDate.value = now.toISOString().slice(0,10);
+    currentTime.value = now.toTimeString().slice(0,8);
+  })();
+
+  let liveInterval = null;
+  let lastDob = null;
+  let lastRef = null;
+
+  function clearDisplay(){
+    exactAge.textContent = '—';
+    exactAgeSub.textContent = 'Years • Months • Days';
+    weeksEl.textContent = '—';
+    totalDaysEl.textContent = '—';
+    totalHoursEl.textContent = '—';
+    totalMinutesEl.textContent = '—';
+    totalSecondsEl.textContent = '—';
+    liveCounter.textContent = '—';
+    nextBday.textContent = '— 🎂';
+    daysLeftEl.textContent = '—';
+    nextBreakdown.textContent = '—';
+    if (liveInterval) { clearInterval(liveInterval); liveInterval = null; }
+  }
+
+  function performCalc(useRefDate=false){
+    const curDateStr = currentDate.value;
+    const curTimeStr = currentTime.value;
+    const refDateStr = refDate.value;
+    const dobDateStr = dobDate.value;
+    const dobTimeStr = dobTime.value;
+
+    const curDateTime = dateTimeFromInputs(curDateStr, curTimeStr) || new Date();
+    const ref = useRefDate && refDateStr ? dateTimeFromInputs(refDateStr, curTimeStr) : curDateTime;
+    const dob = dateTimeFromInputs(dobDateStr, dobTimeStr);
+
+    if (!dob) { alert('Please enter Date of Birth'); return; }
+    if (ref < dob) { alert('Reference/Current date cannot be earlier than DOB'); return; }
+
+    const age = computePreciseAge(dob, ref);
+    if (!age) { alert('Could not compute age'); return; }
+
+    // main large age
+    exactAge.textContent = `${age.years} yrs ${age.months} m ${age.days} d`;
+    exactAgeSub.textContent = `${age.years} years • ${age.months} months • ${age.days} days`;
+
+    // totals
+    weeksEl.textContent = Math.floor(age.totalDays/7) + ' weeks';
+    totalDaysEl.textContent = age.totalDays + ' days';
+    totalHoursEl.textContent = age.totalHours + ' hrs';
+    totalMinutesEl.textContent = age.totalMins + ' mins';
+    totalSecondsEl.textContent = age.totalSecs + ' secs';
+
+    // next birthday
+    const nb = getNextBirthday(dob, ref);
+    const nbDate = nb.candidate;
+    nextBday.textContent = `${pad(nbDate.getDate())}-${pad(nbDate.getMonth()+1)}-${nbDate.getFullYear()} 🎂`;
+    daysLeftEl.textContent = nb.daysLeft + ' day(s)';
+    nextBreakdown.textContent = `Approx: ${Math.floor(nb.daysLeft/30)} month(s) and ${nb.daysLeft % 30} day(s)`;
+
+    // live counter: base on ref/time difference
+    if (liveInterval) clearInterval(liveInterval);
+    const baseSystem = Date.now();
+    const baseRefMs = ref.getTime();
+    lastDob = dob;
+    lastRef = ref;
+
+    function tick(){
+      const nowSystem = Date.now();
+      const elapsed = nowSystem - baseSystem;
+      const currentRefMs = baseRefMs + elapsed;
+      const currentRef = new Date(currentRefMs);
+      const ageNow = computePreciseAge(dob, currentRef);
+      if (!ageNow) return;
+      liveCounter.textContent = formatLiveString(ageNow);
+    }
+    tick();
+    liveInterval = setInterval(tick, 1000);
+  }
+
+  calcBtn.addEventListener('click', function(){ performCalc(true); });
+  resetBtn.addEventListener('click', function(){
+    initDefaults();
+    refDate.value = '';
+    dobDate.value = '';
+    dobTime.value = '';
+    clearDisplay();
+  });
+
+  copyBtn.addEventListener('click', async function(){
+    const text = exactAgeSub.textContent || '';
+    try {
+      await navigator.clipboard.writeText(text);
+      copyBtn.innerHTML = '<i class="fa-regular fa-copy me-1"></i> Copied!';
+      setTimeout(()=>{ copyBtn.innerHTML = '<i class="fa-regular fa-copy me-1"></i> Copy Age'; },1200);
+    } catch(e){
+      alert('Copy failed — your browser may block clipboard access.');
+    }
+  });
+
+  printBtn.addEventListener('click', function(){ window.print(); });
+
+  // --- Batch CSV processing ---
+  function parseCSV(text) {
+    // simple CSV parse: split lines and commas (no quoted commas handling)
+    const lines = text.trim().split(/\r?\n/).filter(Boolean);
+    const rows = lines.map(l => l.split(',').map(s => s.trim()));
+    return rows;
+  }
+
+  processCsvBtn.addEventListener('click', function(){
+    const file = csvInput.files[0];
+    if (!file) { alert('Choose a CSV file first'); return; }
+    const reader = new FileReader();
+    reader.onload = function(e){
+      const txt = e.target.result;
+      const rows = parseCSV(txt);
+      // clear table
+      batchTableBody.innerHTML = '';
+      const nowDateStr = currentDate.value;
+      const nowTimeStr = currentTime.value;
+      const refDateStr = refDate.value;
+      const ref = refDateStr ? dateTimeFromInputs(refDateStr, nowTimeStr) : dateTimeFromInputs(nowDateStr, nowTimeStr);
+      rows.forEach((r, idx) => {
+        // expected: name, dob, time(optional)
+        const name = r[0] || ('Row '+(idx+1));
+        const dobS = r[1] || '';
+        const timeS = r[2] || '';
+        const dob = dateTimeFromInputs(dobS, timeS);
+        const tr = document.createElement('tr');
+        if (!dob) {
+          tr.innerHTML = `<td>${name}</td><td class="text-danger">Invalid DOB</td><td>—</td><td>—</td><td>—</td><td>—</td>`;
+        } else {
+          const age = computePreciseAge(dob, ref);
+          const nb = getNextBirthday(dob, ref);
+          const ageStr = `${age.years}y ${age.months}m ${age.days}d`;
+          const nbStr = `${pad(nb.candidate.getDate())}-${pad(nb.candidate.getMonth()+1)}-${nb.candidate.getFullYear()}`;
+          tr.innerHTML = `<td>${name}</td>
+                          <td>${dobS || ''}</td>
+                          <td>${timeS || '—'}</td>
+                          <td>${ageStr}</td>
+                          <td>${nbStr} 🎂</td>
+                          <td>${nb.daysLeft} days</td>`;
+        }
+        batchTableBody.appendChild(tr);
+      });
+    };
+    reader.readAsText(file);
+  });
+
+  printBatchBtn.addEventListener('click', function(){ window.print(); });
+
+  downloadBatchBtn.addEventListener('click', function(){
+    // create CSV from table
+    const rows = [];
+    const header = ['Name','DOB','Birth Time','Exact Age','Next Birthday','Days Left'];
+    rows.push(header.join(','));
+    batchTableBody.querySelectorAll('tr').forEach(tr=>{
+      const cols = Array.from(tr.children).map(td => td.textContent.replace(/,/g,''));
+      rows.push(cols.join(','));
+    });
+    const csv = rows.join('\n');
+    const blob = new Blob([csv], {type:'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'batch_ages.csv'; document.body.appendChild(a);
+    a.click(); a.remove(); URL.revokeObjectURL(url);
+  });
+
+  // small helper to re-init defaults (used on reset)
+  function initDefaults(){
+    const now = new Date();
+    currentDate.value = now.toISOString().slice(0,10);
+    currentTime.value = now.toTimeString().slice(0,8);
+  }
+
+  // helper formatLiveString used in tick
+  function formatLiveString(ageObj){
+    const yy = ageObj.years;
+    const mm = ageObj.months;
+    const ww = Math.floor(ageObj.totalDays / 7);
+    const dd = ageObj.totalDays % 7;
+    return `${pad(yy,2)}:${pad(mm)}:${pad(ww)}:${pad(dd)}:${pad(ageObj.hours)}:${pad(ageObj.mins)}:${pad(ageObj.secs)}`;
+  }
+
+  // Initialize cleared UI
+  clearDisplay();
+</script>
+</body>
+</html>

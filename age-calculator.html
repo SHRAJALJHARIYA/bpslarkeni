@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Age Calculator</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome Free -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --card-radius: 12px;
+      --soft-shadow: 0 6px 20px rgba(16,24,40,0.06);
+      --accent: #5b8def;
+    }
+
+    body{
+      background: linear-gradient(180deg, #f6fbff 0%, #ffffff 100%);
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: var(--card-radius);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .app-header {
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .logo-circle{
+      width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#8fb7ff);
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+      box-shadow: 0 6px 18px rgba(91,141,239,0.18);
+    }
+
+    .result-number{
+      font-weight:700;
+      font-size:1.15rem;
+    }
+
+    .muted {
+      color: #6b7280;
+      font-size: .9rem;
+    }
+
+    /* small animation */
+    .fade-up {
+      transform: translateY(8px);
+      opacity: 0;
+      animation: fadeUp .5s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .live-counter {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      letter-spacing: .04em;
+      font-weight:700;
+      font-size:1rem;
+    }
+
+    .icon-sm { width:28px; text-align:center; display:inline-block; }
+
+    .calc-btn {
+      background: linear-gradient(90deg,var(--accent), #3c7be0);
+      color: white;
+      border: none;
+      box-shadow: 0 6px 18px rgba(91,141,239,0.18);
+    }
+    .calc-btn:hover { transform: translateY(-2px); transition: .18s ease; }
+
+    @media (max-width: 575px){
+      .app-header { flex-direction: column; gap:.5rem; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card p-4">
+        <div class="app-header">
+          <div class="logo-circle"><i class="fa-solid fa-cake-candles"></i></div>
+          <div>
+            <h3 class="mb-0">Age Calculator</h3>
+            <div class="muted">Precise age, live counter, and next birthday — simple and responsive.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="row g-3 mb-3">
+    <div class="col-lg-6">
+      <div class="card p-3">
+        <div class="d-flex align-items-center mb-2">
+          <div class="icon-sm text-primary"><i class="fa-regular fa-calendar"></i></div>
+          <div class="ms-2">
+            <strong>Current Date / Time</strong>
+            <div class="muted">Defaults to your system's current date/time (editable)</div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-8">
+            <input id="currentDate" class="form-control" type="date">
+          </div>
+          <div class="col-4">
+            <input id="currentTime" class="form-control" type="time" step="1">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card p-3">
+        <div class="d-flex align-items-center mb-2">
+          <div class="icon-sm text-danger"><i class="fa-regular fa-clock"></i></div>
+          <div class="ms-2">
+            <strong>Date of Birth (with optional time)</strong>
+            <div class="muted">If you provide the birth time, the calculation will be exact to seconds.</div>
+          </div>
+        </div>
+
+        <div class="row g-2 mt-2">
+          <div class="col-7">
+            <input id="dobDate" class="form-control" type="date">
+          </div>
+          <div class="col-5">
+            <input id="dobTime" class="form-control" type="time" step="1" placeholder="HH:MM:SS">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="row mb-3">
+    <div class="col-12 d-flex gap-2">
+      <button id="btnCalc" class="btn calc-btn px-4"><i class="fa-solid fa-calculator me-2"></i>Calculate Age</button>
+      <button id="btnReset" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left me-2"></i>Reset</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="row g-3">
+    <div class="col-lg-6">
+      <div class="card p-3 fade-up" id="boxTotals" style="display:none;">
+        <h5 class="mb-3"><i class="fa-solid fa-hourglass-half me-2"></i>Total Lived Time</h5>
+        <div class="row gy-2">
+          <div class="col-6">
+            <div class="p-3 border rounded">
+              <div class="muted">Years</div>
+              <div id="resYears" class="result-number">—</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-3 border rounded">
+              <div class="muted">Months</div>
+              <div id="resMonths" class="result-number">—</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="p-3 border rounded">
+              <div class="muted">Weeks</div>
+              <div id="resWeeks" class="result-number">—</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-3 border rounded">
+              <div class="muted">Days (total)</div>
+              <div id="resDaysTotal" class="result-number">—</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="p-3 border rounded">
+              <div class="muted">Hours (total)</div>
+              <div id="resHoursTotal" class="result-number">—</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-3 border rounded">
+              <div class="muted">Minutes (total)</div>
+              <div id="resMinutesTotal" class="result-number">—</div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="p-3 border rounded">
+              <div class="muted">Seconds (total)</div>
+              <div id="resSecondsTotal" class="result-number">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live counter and next birthday -->
+    <div class="col-lg-6">
+      <div class="card p-3 fade-up" id="boxLive" style="display:none;">
+        <h5 class="mb-3"><i class="fa-solid fa-heart-pulse me-2"></i>You have lived…</h5>
+
+        <div class="p-3 mb-3 bg-light rounded">
+          <div class="live-counter" id="liveCounter">—</div>
+          <div class="muted small mt-1">Format: <strong>YY:MM:WW:DD:HH:MM:SS</strong> (weeks are full weeks from total days)</div>
+        </div>
+
+        <h6 class="mb-2"><i class="fa-solid fa-gift me-2"></i>Next Birthday</h6>
+        <div class="p-3 border rounded">
+          <div class="muted small">Date</div>
+          <div id="nextBdayDate" class="result-number">—</div>
+
+          <div class="muted small mt-2">Days left</div>
+          <div id="daysLeft" class="result-number">—</div>
+
+          <div class="muted small mt-2">Approx. breakdown</div>
+          <div id="daysBreakdown" class="muted">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12 text-muted small">
+      Tip: Provide birth time (HH:MM:SS) for a precise second-by-second age. This page runs entirely in your browser.
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap and JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Utility helpers
+  function pad(n, width=2) {
+    return String(n).padStart(width, '0');
+  }
+
+  // Convert date + time inputs into a JS Date (local)
+  function getDateFromInputs(dateStr, timeStr) {
+    if (!dateStr) return null;
+    // timeStr may be "", or "HH:MM" or "HH:MM:SS"
+    let [y,m,d] = dateStr.split('-').map(Number);
+    let hh = 0, mm = 0, ss = 0;
+    if (timeStr) {
+      const parts = timeStr.split(':').map(Number);
+      if (parts.length>=1) hh = parts[0] || 0;
+      if (parts.length>=2) mm = parts[1] || 0;
+      if (parts.length>=3) ss = parts[2] || 0;
+    }
+    return new Date(y, m-1, d, hh, mm, ss);
+  }
+
+  // Compute precise years, months, days, hours, mins, secs between two dates (dob -> now)
+  // Returns object {years, months, days, hours, mins, secs, totalMs, totalDays, totalHours, totalMins, totalSecs}
+  function computePreciseAge(dob, now) {
+    if (!(dob instanceof Date) || !(now instanceof Date)) return null;
+    if (now < dob) return null;
+
+    // Start with simple differences for years and months:
+    let years = now.getFullYear() - dob.getFullYear();
+    let months = now.getMonth() - dob.getMonth();
+    let days = now.getDate() - dob.getDate();
+    let hours = now.getHours() - dob.getHours();
+    let mins = now.getMinutes() - dob.getMinutes();
+    let secs = now.getSeconds() - dob.getSeconds();
+
+    if (secs < 0) { secs += 60; mins -= 1; }
+    if (mins < 0) { mins += 60; hours -= 1; }
+    if (hours < 0) { hours += 24; days -= 1; }
+
+    if (days < 0) {
+      // borrow from previous month
+      let prevMonth = new Date(now.getFullYear(), now.getMonth(), 0); // last day of previous month
+      days += prevMonth.getDate();
+      months -= 1;
+    }
+
+    if (months < 0) {
+      months += 12;
+      years -= 1;
+    }
+
+    // total milliseconds
+    const totalMs = now.getTime() - dob.getTime();
+    const totalSecs = Math.floor(totalMs / 1000);
+    const totalMins = Math.floor(totalSecs / 60);
+    const totalHours = Math.floor(totalMins / 60);
+    const totalDays = Math.floor(totalHours / 24);
+
+    return {
+      years, months, days, hours, mins, secs,
+      totalMs, totalSecs, totalMins, totalHours, totalDays
+    };
+  }
+
+  // Format the live counter in YY:MM:WW:DD:HH:MM:SS
+  function formatLiveCounter(ageObj) {
+    // YY => full years padded to 2 or more digits? We'll show years as full numeric padded to 2 (if <100). If >99, show full.
+    let yy = ageObj.years;
+    let mm = ageObj.months;
+    // weeks: from totalDays -> full weeks
+    let ww = Math.floor(ageObj.totalDays / 7);
+    let dd = ageObj.totalDays % 7; // remainder days not inside weeks — but user wanted also dd separately; to match requested pattern I'll display weeks as full weeks, dd as remaining days beyond weeks.
+    let hh = ageObj.hours;
+    let min = ageObj.mins;
+    let ss = ageObj.secs;
+
+    // ensure two-digit for components
+    const yyStr = yy < 100 ? pad(yy,2) : String(yy);
+    return `${yyStr}:${pad(mm)}:${pad(ww)}:${pad(dd)}:${pad(hh)}:${pad(min)}:${pad(ss)}`;
+  }
+
+  // Calculate next birthday date and days left
+  function getNextBirthday(dob, now) {
+    if (!dob || !now) return null;
+    const bMonth = dob.getMonth();
+    const bDate = dob.getDate();
+    const bHours = dob.getHours();
+    const bMinutes = dob.getMinutes();
+    const bSeconds = dob.getSeconds();
+
+    // Candidate this year
+    let year = now.getFullYear();
+    let candidate = new Date(year, bMonth, bDate, bHours, bMinutes, bSeconds);
+
+    // If candidate <= now, move to next year
+    if (candidate <= now) {
+      candidate = new Date(year + 1, bMonth, bDate, bHours, bMinutes, bSeconds);
+    }
+
+    // days left (rounded up if partial day)
+    const msLeft = candidate.getTime() - now.getTime();
+    const fullDaysLeft = Math.floor(msLeft / (24*3600*1000));
+    // breakdown months/days approximate using months difference
+    let monthsLeft = (candidate.getFullYear() - now.getFullYear()) * 12 + (candidate.getMonth() - now.getMonth());
+    let daysLeftRemainder = candidate.getDate() - now.getDate();
+    if (daysLeftRemainder < 0) {
+      // borrow from monthsLeft
+      monthsLeft -= 1;
+      const prevMonth = new Date(candidate.getFullYear(), candidate.getMonth(), 0); // last day of candidate's prev month
+      daysLeftRemainder = candidate.getDate() + (prevMonth.getDate() - now.getDate());
+    }
+
+    return {
+      nextBirthday: candidate,
+      msLeft,
+      fullDaysLeft,
+      monthsLeft: Math.max(0, monthsLeft),
+      daysLeftRemainder: Math.max(0, daysLeftRemainder)
+    };
+  }
+
+  // UI wiring
+  const currentDateInput = document.getElementById('currentDate');
+  const currentTimeInput = document.getElementById('currentTime');
+  const dobDateInput = document.getElementById('dobDate');
+  const dobTimeInput = document.getElementById('dobTime');
+
+  const btnCalc = document.getElementById('btnCalc');
+  const btnReset = document.getElementById('btnReset');
+
+  const boxTotals = document.getElementById('boxTotals');
+  const boxLive = document.getElementById('boxLive');
+
+  const resYears = document.getElementById('resYears');
+  const resMonths = document.getElementById('resMonths');
+  const resWeeks = document.getElementById('resWeeks');
+  const resDaysTotal = document.getElementById('resDaysTotal');
+  const resHoursTotal = document.getElementById('resHoursTotal');
+  const resMinutesTotal = document.getElementById('resMinutesTotal');
+  const resSecondsTotal = document.getElementById('resSecondsTotal');
+
+  const liveCounter = document.getElementById('liveCounter');
+  const nextBdayDate = document.getElementById('nextBdayDate');
+  const daysLeft = document.getElementById('daysLeft');
+  const daysBreakdown = document.getElementById('daysBreakdown');
+
+  let liveInterval = null;
+  let lastDob = null;
+  let lastNow = null;
+
+  // Initialize default values (today)
+  function initDefaults(){
+    const now = new Date();
+    currentDateInput.value = now.toISOString().slice(0,10);
+    currentTimeInput.value = now.toTimeString().slice(0,8);
+    // clear dob by default
+    // dobDateInput.value = '';
+    // dobTimeInput.value = '';
+  }
+  initDefaults();
+
+  function clearResults(){
+    boxTotals.style.display = 'none';
+    boxLive.style.display = 'none';
+    if (liveInterval) {
+      clearInterval(liveInterval);
+      liveInterval = null;
+    }
+  }
+
+  function performCalculation(){
+    const curDateStr = currentDateInput.value;
+    const curTimeStr = currentTimeInput.value;
+    const dobDateStr = dobDateInput.value;
+    const dobTimeStr = dobTimeInput.value;
+
+    const now = getDateFromInputs(curDateStr, curTimeStr) || new Date();
+    const dob = getDateFromInputs(dobDateStr, dobTimeStr);
+    if (!dob) {
+      alert('Please enter a valid Date of Birth.');
+      return;
+    }
+    if (now < dob) {
+      alert('Current date/time cannot be earlier than Date of Birth.');
+      return;
+    }
+
+    // compute precise age
+    const age = computePreciseAge(dob, now);
+    if (!age) {
+      alert('Could not compute age. Check inputs.');
+      return;
+    }
+
+    // populate totals
+    resYears.textContent = age.years + ' yrs';
+    resMonths.textContent = age.months + ' months (remainder)';
+    resWeeks.textContent = Math.floor(age.totalDays / 7) + ' weeks';
+    resDaysTotal.textContent = age.totalDays + ' days';
+    resHoursTotal.textContent = age.totalHours + ' hrs';
+    resMinutesTotal.textContent = age.totalMins + ' mins';
+    resSecondsTotal.textContent = age.totalSecs + ' secs';
+
+    // show boxes
+    boxTotals.style.display = 'block';
+    boxLive.style.display = 'block';
+
+    // next birthday
+    const nb = getNextBirthday(dob, now);
+    const nbDate = nb.nextBirthday;
+    nextBdayDate.textContent = pad(nbDate.getDate(),2) + '-' + pad(nbDate.getMonth()+1,2) + '-' + nbDate.getFullYear();
+    daysLeft.textContent = nb.fullDaysLeft + ' day(s)';
+    daysBreakdown.textContent = nb.monthsLeft + ' month(s) and ' + nb.daysLeftRemainder + ' day(s)';
+
+    // live counter: update every second based on "now" offset relative to system time
+    // We'll keep a base offset: baseNow = now, then on each tick compute currentNow = baseNow + (systemNow - baseSystemNow)
+    if (liveInterval) clearInterval(liveInterval);
+    let baseSystemTime = Date.now();
+    let baseNow = now.getTime();
+    lastDob = dob;
+    lastNow = now;
+
+    function tick() {
+      const currentSystem = Date.now();
+      const elapsed = currentSystem - baseSystemTime;
+      const currentNowMs = baseNow + elapsed;
+      const currentNow = new Date(currentNowMs);
+      const ageNow = computePreciseAge(dob, currentNow);
+      if (!ageNow) return;
+      liveCounter.textContent = formatLiveCounter(ageNow);
+    }
+
+    tick();
+    liveInterval = setInterval(tick, 1000);
+  }
+
+  btnCalc.addEventListener('click', function(e){
+    performCalculation();
+  });
+
+  btnReset.addEventListener('click', function(){
+    initDefaults();
+    dobDateInput.value = '';
+    dobTimeInput.value = '';
+    clearResults();
+  });
+
+  // when inputs change, optionally auto-update current date to system date/time (not forced)
+  // (We keep defaults but let user change)
+</script>
+</body>
+</html>
